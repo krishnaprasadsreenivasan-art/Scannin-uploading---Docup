@@ -237,8 +237,8 @@ main{min-height:0;min-width:0;display:flex;flex-direction:column;padding:14px 18
 .seg{display:flex;background:#222;border-radius:999px;padding:2px}
 .seg button{border:0;background:none;color:#aaa;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:700}
 .seg button.on{background:#fff;color:#000}
-.cam2{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:3/4;min-height:0;max-height:52vh;background:#222;border:2px solid #2F66F6}
-.cam2 img{width:100%;height:100%;object-fit:cover;opacity:.9}
+.cam2{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:3/4;min-height:0;max-height:52vh;background:#2a2a2a;border:2px solid #2F66F6}
+.cam2 img{width:100%;height:100%;object-fit:contain;opacity:1}
 .scanline{position:absolute;left:0;right:0;height:3px;background:#2F66F6;box-shadow:0 0 12px #2F66F6;animation:scan 2.4s linear infinite}
 @keyframes scan{0%{top:0}100%{top:100%}}
 .ph-hint{text-align:center;font-size:11.5px;color:#ccc}
@@ -337,8 +337,8 @@ main{min-height:0;min-width:0;display:flex;flex-direction:column;padding:14px 18
 .mpw small{font-size:9px;color:#aaa;letter-spacing:.5px;text-transform:uppercase}
 .mpill{transition:background .4s,color .4s,transform .2s}
 .mpill:active{transform:scale(.94)}
-.sfr{position:absolute;inset:14%;border:3px solid rgba(255,255,255,.7);border-radius:8px;transition:inset .6s ease,border-color .4s}
-.sfr.lock{inset:5%;border-color:#3BD16F;box-shadow:0 0 0 2000px rgba(0,0,0,.18)}
+.sfr{position:absolute;left:0;top:0;width:100%;height:100%;border:3px solid rgba(255,255,255,.75);border-radius:4px;transform:scale(1.12);opacity:.85;transition:transform .6s ease,border-color .4s,opacity .4s;pointer-events:none}
+.sfr.lock{transform:scale(1);opacity:1;border-color:#3BD16F}
 .cd{position:absolute;inset:0;display:grid;place-items:center;font-size:64px;font-weight:800;color:#fff;text-shadow:0 3px 12px rgba(0,0,0,.6);pointer-events:none}
 .cd.pop{animation:cdpop .7s ease-out}
 @keyframes cdpop{0%{transform:scale(1.6);opacity:0}30%{opacity:1}100%{transform:scale(1);opacity:.85}}
@@ -385,6 +385,11 @@ main{min-height:0;min-width:0;display:flex;flex-direction:column;padding:14px 18
 .mapbtn .mw{max-width:44vw}
 .dnav .dnb,.dnav .dnx{min-height:44px}
 }
+.cam2{flex:1 1 auto!important;aspect-ratio:auto!important;max-height:none!important;min-height:120px}
+.dbody>.ph:has(.cam2){flex:1 1 auto;min-height:0;width:min(300px,100%);max-height:620px}
+.toastp{top:auto;bottom:44px}
+@media (max-width:760px){.coach.later{display:none}.ph-hint{font-size:12px!important;line-height:1.35}.phs{padding:10px 10px!important;gap:6px!important}}
+@media (max-width:760px){.dbody>.ph:has(.cam2){padding:5px;border-radius:22px;width:min(330px,100%)}.ph:has(.cam2) .phs{border-radius:18px;padding:8px!important}.ph:has(.cam2) .ph-top{min-height:0}.ph:has(.cam2) .shut{width:46px;height:46px}.dbody:has(.cam2) .cap .ct{font-size:13.5px}.dbody:has(.cam2){padding:10px 12px}}
 /* in-screen nav */
 footer{display:none!important}
 .dnav{flex:0 0 auto;display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
@@ -745,13 +750,18 @@ function grp(id){return G.find(g=>g.id===id);}
 /* ---------- custom scan steps ---------- */
 const phone=inner=>`<div class="ph"><div class="phs">${inner}</div></div>`;
 const tapLbl=`<div class="taphere">👆 Click here</div>`;
+function fitCam(){const c=document.querySelector('.cam2');if(!c)return;const im=c.querySelector('img'),f=c.querySelector('.sfr');if(!im||!f)return;
+  const go=()=>{const r=im.naturalWidth/im.naturalHeight,W=c.clientWidth,H=c.clientHeight;if(!r||!W||!H)return;let w=W,h=W/r;if(h>H){h=H;w=H*r;}
+    Object.assign(f.style,{left:(W-w)/2+'px',top:(H-h)/2+'px',width:w+'px',height:h+'px'});};
+  if(im.complete)go();else im.onload=go;}
+window.addEventListener('resize',fitCam);
 const CUSTOM={
  cards(){const st=FLAT[cur].st;body().innerHTML=`<div class="cap"><span class="ct">${st.cap}</span></div><div class="tcards">${st.cards.map(c=>`<div class="tc ${c.k||''}"><span class="tci">${c.i}</span><div><b>${c.t}</b><p>${c.d}</p></div></div>`).join('')}</div>`;},
  apphome(){const st=FLAT[cur].st;body().innerHTML=`<div class="cap"><span class="ct">${st.cap}</span></div>`+phone(`<div class="ph-h">Synergy Up</div><div class="ph-grid"><div class="ph-tile">📊<br>Cash Up</div><div class="ph-tile">👥<br>Employee Up</div><div class="ph-tile">🗓️<br>Team Up</div><button class="ph-tile ph-up pulse" id="u1">📄<br>Doc Up</button></div>${tapLbl}`);$('u1').onclick=next;},
  camA(){const st=FLAT[cur].st,c=FLAT[cur];
    body().innerHTML=`<div class="cap"><span class="ct">${st.cap}</span></div>`+phone(`<div class="ph-top"><span>${st.label}</span><span class="mpw"><span class="mpill">Auto</span><small>mode</small></span></div>
    <div class="cam2"><img src="${IMG[st.img||'dinv']}" alt=""><span class="sfr" id="fr"></span><span class="cd" id="cd"></span><div class="flash" id="fl"></div><div class="done" id="dn">✓ Photo taken</div></div>
-   <div class="ph-hint" id="ph">📱 Auto mode: hold the phone steady over the page</div><div class="shut ghost"></div>`);
+   <div class="ph-hint" id="ph">📱 Auto mode: hold the phone steady over the page</div><div class="shut ghost"></div>`);fitCam();
    const live=()=>FLAT[cur]===c;let n=3;
    setTimeout(()=>{if(!live())return;$('fr').classList.add('lock');$('ph').innerHTML='Page found. Keep still…';
      const tick=()=>{if(!live())return;if(n>0){$('cd').textContent=n;$('cd').classList.remove('pop');void $('cd').offsetWidth;$('cd').classList.add('pop');n--;setTimeout(tick,700);}
@@ -760,7 +770,7 @@ const CUSTOM={
    body().innerHTML=`<div class="cap"><span class="ct">${st.cap}</span></div>`+phone(`<div class="ph-top"><span>${st.label}${st.page?' · Page '+st.page:''}</span><span class="mpw"><button class="mpill ${man?'man':'pulse'}" id="mp">${man?'Manual':'Auto'}</button><small id="ml">mode</small>${man?'':'<span class="segptr" id="sp">👆 Tap to switch</span>'}</span></div>
    <div class="cam2"><img src="${IMG[st.img||'dinv']}" alt=""><span class="sfr ${man?'lock':''}"></span><div class="toastp" id="tp">Manual mode on: you take the photo</div><div class="flash" id="fl"></div><div class="done" id="dn">✓ Photo taken</div></div>
    <div class="ph-hint" id="ph">${man?'Manual: line up the page, then tap the white button 👇':'You\'re on <b>Auto</b>. Tap it once to switch to <b>Manual</b>.'}</div>
-   <button class="shut ${man?'pulse':'ghost'}" id="sh" aria-label="Take photo"></button><div id="tl">${man?tapLbl:''}</div>`);
+   <button class="shut ${man?'pulse':'ghost'}" id="sh" aria-label="Take photo"></button><div id="tl">${man?tapLbl:''}</div>`);fitCam();
    let ready=man;const live=()=>FLAT[cur]===c;
    const toManual=()=>{if(ready)return;const b=$('mp');b.classList.remove('pulse');b.classList.add('man');b.textContent='Manual';const s=$('sp');if(s)s.remove();
      $('tp').classList.add('show');setTimeout(()=>{if(live())$('tp').classList.remove('show');},1600);
@@ -869,7 +879,7 @@ function render(){
   if(f.k===s.steps.length-1&&s.id!=='menu')seen.add(f.si);
   document.querySelector('.stage').classList.add('wide');
   const dots=s.steps.length>1?`<span class="sdots">${s.steps.map((_,k)=>`<i class="${k<f.k?'d':k===f.k?'c':''}"></i>`).join('')}</span><span class="sstep">Step ${f.k+1} of ${s.steps.length}</span>`:'';
-  $('coach').innerHTML=`<div class="kicker">${s.id==='menu'?'':`<button class="shbtn" onclick="shareSec(${f.si})">🔗 Share this topic</button>`}<span class="boxtag"><span class="badge ${g.lt?'lt':''}" style="--c:${g.c}">${g.badge}</span>${g.box?'Box '+g.box+': ':''}${g.name}</span>${dots}</div><h1>${s.name}</h1><p class="say ${f.k>0?'later':''}">${s.say}</p>`;
+  $('coach').classList.toggle('later',f.k>0);$('coach').innerHTML=`<div class="kicker">${s.id==='menu'?'':`<button class="shbtn" onclick="shareSec(${f.si})">🔗 Share this topic</button>`}<span class="boxtag"><span class="badge ${g.lt?'lt':''}" style="--c:${g.c}">${g.badge}</span>${g.box?'Box '+g.box+': ':''}${g.name}</span>${dots}</div><h1>${s.name}</h1><p class="say ${f.k>0?'later':''}">${s.say}</p>`;
   $('crumb').textContent=(g.box?g.name+' › ':'')+s.name;
   document.querySelector('.dbar').style.boxShadow=`inset 0 -3px 0 ${g.c}`;
   $('draft').style.display='none';
