@@ -693,8 +693,7 @@ const PH=(txt)=>({ph:txt});
 const G=[
  {id:'sup',name:'Supplier documents',c:'#E4032E',badge:'📄'},
  {id:'card',name:'Card receipts',c:'#FFC72C',badge:'💳',lt:1},
- {id:'price',name:'Product prices',c:'#B00A3A',badge:'🏷️'},
- {id:'tips',name:'Tips & checklist',c:'#3D0B1E',badge:'💡'}
+ {id:'price',name:'Product prices',c:'#B00A3A',badge:'🏷️'}
 ];
 const SECTIONS=[
  {g:'sup',id:'menu',name:'Start',say:'Pick exactly what you want to do. Each one is a short step-by-step tutorial.',steps:[{custom:'mainmenu',cap:''}]},
@@ -705,18 +704,23 @@ const SECTIONS=[
   {custom:'cards',cap:'🍎 <b>iPhone users, read this first.</b>',cards:[
    {i:'🍎',k:'warn',t:'iPhone: ignore the blue lines',d:'On iPhone the <b>blue lines</b> on the camera screen <b>don\'t line up</b> with the page. Ignore them. Just hold the phone steady over the page, or switch to <b>Manual</b> and tap the white button.'},
    {i:'🤖',k:'ok',t:'Android: they work fine',d:'On Android the blue outline lines up with the page and works as shown in this training.'}]},
-  {custom:'cards',cap:'<b>Before you scan · 1 of 4:</b> flat and straight on.',cards:[
-   {i:'✅',k:'ok',t:'Do this',d:'Lay the page <b>flat on a table</b>. Hold the phone <b>directly above it</b>, level with the page.'},
+  {custom:'cards',cap:'<b>Before you scan · 1 of 5:</b> a clear, empty table.',cards:[
+   {i:'✅',k:'ok',t:'Do this',d:'Lay the page on a <b>clear, empty table</b>. Only the one document in view.'},
+   {i:'❌',k:'bad',t:'Not this',d:'<b>Other documents around it or behind it.</b> They get picked up in the scan and cause errors.'}]},
+  {custom:'cards',cap:'<b>Before you scan · 2 of 5:</b> flat and straight on.',cards:[
+   {i:'✅',k:'ok',t:'Do this',d:'Lay the page <b>flat</b>. Hold the phone <b>directly above it</b>, level with the page.'},
    {i:'❌',k:'bad',t:'Not this',d:'Don\'t tilt the phone towards you. Angled scans stretch the text and blur the far edge. This is the most common mistake.'}]},
-  {custom:'cards',cap:'<b>Before you scan · 2 of 4:</b> keep the phone upright.',cards:[
+  {custom:'cards',cap:'<b>Before you scan · 3 of 5:</b> keep the phone upright.',cards:[
    {i:'✅',k:'ok',t:'Do this',d:'Hold the phone <b>upright (portrait)</b>, even if the document is printed sideways.'},
    {i:'❌',k:'bad',t:'Not this',d:'Don\'t turn the phone sideways to match a landscape page. It causes distortion and scanning errors.'}]},
-  {custom:'cards',cap:'<b>Before you scan · 3 of 4:</b> fill the screen and focus.',cards:[
+  {custom:'cards',cap:'<b>Before you scan · 4 of 5:</b> fill the screen and focus.',cards:[
    {i:'✅',k:'ok',t:'Do this',d:'The page <b>fills the screen</b>, with very little table showing. <b>Tap the text</b> on screen to focus.'},
    {i:'❌',k:'bad',t:'Not this',d:'A small page in the middle of the screen, or a blurry photo. Blurry scans can\'t be processed.'}]},
-  {custom:'cards',cap:'<b>Before you scan · 4 of 4:</b> good light, no glare.',cards:[
+  {custom:'cards',cap:'<b>Before you scan · 5 of 5:</b> good light, no glare.',cards:[
    {i:'✅',k:'ok',t:'Do this',d:'<b>Natural light</b> is best, e.g. near a window. Turn on the <b>flash ✳︎</b> if it\'s dim.'},
    {i:'❌',k:'bad',t:'Not this',d:'Scanning right under overhead lights. The glare hides the text.'}]},
+  {custom:'cards',cap:'<b>Tip:</b> no supplier name on the docket?',cards:[
+   {i:'🖊️',k:'warn',t:'Write it on before scanning',d:'Use the empty space at the top of the docket. Write the <b>supplier name and date</b> in black marker, then scan.'}]},
   {custom:'camA',label:'Supplier Delivery Docs',cap:'⚠️ The camera starts on <b>Auto</b> (top right). On Android a <b>blue outline</b> shows the page is found. Hold steady until the corners lock and it <b>takes the photo by itself</b>. Then click <b>Next</b>.'},
   {custom:'camB',label:'Supplier Delivery Docs',cap:'Prefer to take the photo yourself? Tap <b>Auto</b> (top right) once to switch to <b>Manual</b>, then tap the <b>white button</b>.'},
   {shot:'ph3',pageImg:'dinv',info:[['prev','<b>Preview</b>: check the scan is clear and nothing is cut off.'],['rtk','<b>Retake</b>: blurry or cut off? Take it again.']],go:'addp',cap:'Document has <b>more than one page</b>? Tap <b>+ Add page</b> for each extra page (and the back of double-sided pages). The counter shows 1 of 2, 1 of 3… so it all saves as <b>one PDF</b>.'},
@@ -746,16 +750,19 @@ const SECTIONS=[
    {i:'✅',k:'ok',t:'Itemised till receipt',d:'Shows each item and the VAT breakdown. This is the one to scan.'},
    {i:'❌',k:'bad',t:'Not the card terminal slip',d:'The small card machine slip is <b>not a valid VAT receipt</b>.'},
    {i:'🍎',k:'warn',t:'iPhone users',d:'<b>Ignore the blue lines</b> on the camera screen. Just hold steady, or use Manual.'},]},
-  {custom:'cards',cap:'<b>Before you scan · 1 of 4:</b> flat and straight on.',cards:[
-   {i:'✅',k:'ok',t:'Do this',d:'Lay the page <b>flat on a table</b>. Hold the phone <b>directly above it</b>, level with the page.'},
+  {custom:'cards',cap:'<b>Before you scan · 1 of 5:</b> a clear, empty table.',cards:[
+   {i:'✅',k:'ok',t:'Do this',d:'Lay the page on a <b>clear, empty table</b>. Only the one document in view.'},
+   {i:'❌',k:'bad',t:'Not this',d:'<b>Other documents around it or behind it.</b> They get picked up in the scan and cause errors.'}]},
+  {custom:'cards',cap:'<b>Before you scan · 2 of 5:</b> flat and straight on.',cards:[
+   {i:'✅',k:'ok',t:'Do this',d:'Lay the page <b>flat</b>. Hold the phone <b>directly above it</b>, level with the page.'},
    {i:'❌',k:'bad',t:'Not this',d:'Don\'t tilt the phone towards you. Angled scans stretch the text and blur the far edge. This is the most common mistake.'}]},
-  {custom:'cards',cap:'<b>Before you scan · 2 of 4:</b> keep the phone upright.',cards:[
+  {custom:'cards',cap:'<b>Before you scan · 3 of 5:</b> keep the phone upright.',cards:[
    {i:'✅',k:'ok',t:'Do this',d:'Hold the phone <b>upright (portrait)</b>, even if the document is printed sideways.'},
    {i:'❌',k:'bad',t:'Not this',d:'Don\'t turn the phone sideways to match a landscape page. It causes distortion and scanning errors.'}]},
-  {custom:'cards',cap:'<b>Before you scan · 3 of 4:</b> fill the screen and focus.',cards:[
+  {custom:'cards',cap:'<b>Before you scan · 4 of 5:</b> fill the screen and focus.',cards:[
    {i:'✅',k:'ok',t:'Do this',d:'The page <b>fills the screen</b>, with very little table showing. <b>Tap the text</b> on screen to focus.'},
    {i:'❌',k:'bad',t:'Not this',d:'A small page in the middle of the screen, or a blurry photo. Blurry scans can\'t be processed.'}]},
-  {custom:'cards',cap:'<b>Before you scan · 4 of 4:</b> good light, no glare.',cards:[
+  {custom:'cards',cap:'<b>Before you scan · 5 of 5:</b> good light, no glare.',cards:[
    {i:'✅',k:'ok',t:'Do this',d:'<b>Natural light</b> is best, e.g. near a window. Turn on the <b>flash ✳︎</b> if it\'s dim.'},
    {i:'❌',k:'bad',t:'Not this',d:'Scanning right under overhead lights. The glare hides the text.'}]},
   {custom:'camA',label:'Visa Debit',img:'rcpt',cap:'⚠️ The camera starts on <b>Auto</b> (top right). On Android a <b>blue outline</b> shows the receipt is found. Hold steady and it <b>takes the photo by itself</b>. Then click <b>Next</b>.'},
@@ -786,28 +793,6 @@ const SECTIONS=[
   {shot:'cost',go:'sup',cap:'Want to see one supplier\'s products only? Tap <b>All Suppliers</b>.'},
   {shot:'sel',info:[['box','Type the supplier name, e.g. <b>cona</b>, and tick it.']],go:'apply',cap:'Type the supplier name, tick it, then tap <b>Apply</b>.'},
   {shot:'filt',info:[['cp','Latest <b>Cost Price</b> for each product.'],['srch','Search to find one product.']],cap:'Now you only see that supplier\'s products and the latest price for each.'}]},
- {g:'tips',id:'tips',name:'Scanning tips & checklist',say:'Six rules for scans that read perfectly every time.',steps:[
-  {custom:'cards',cap:'<b>Rule 1:</b> flat, square, straight on.',cards:[
-   {i:'✅',k:'ok',t:'Do this',d:'Straight on, page flat, filling the frame.'},
-   {i:'❌',k:'bad',t:'Not this',d:'Angled: the text distorts and the far edge blurs. The most common mistake is tilting the phone towards you.'}]},
-  {custom:'cards',cap:'<b>Rule 2:</b> always hold your phone upright.',cards:[
-   {i:'✅',k:'ok',t:'Portrait, always',d:'Even if the document is printed landscape, keep the phone upright. It scans perfectly inside the upright frame.'},
-   {i:'❌',k:'bad',t:'Don\'t turn it sideways',d:'Rotating the phone to match a landscape document causes distortion and scanning errors.'}]},
-  {custom:'cards',cap:'<b>Rule 3:</b> frame, focus and light.',cards:[
-   {i:'🔲',t:'Fill the frame',d:'The document should take up the full screen, without lots of table around the edges.'},
-   {i:'🔍',t:'Tap to focus',d:'Tap the screen on the text. Blurry scans can\'t be processed.'},
-   {i:'💡',t:'Watch the lighting',d:'Avoid overhead lights (glare). Natural light from a window is best.'},
-   {i:'✅',t:'Check before saving',d:'All text clear? No glare? Edges visible? If not, retake.'}]},
-  {custom:'cards',cap:'<b>Tip:</b> no supplier name on the docket?',cards:[
-   {i:'🖊️',t:'Write it on',d:'Find the empty space at the top of the docket, write the <b>supplier name and date</b> in black marker, then scan.'}]},
-  {custom:'cards',cap:'<b>Quick checklist</b>: run through it before every scan.',cards:[
-   {i:'✓',k:'ok',t:'One PDF per delivery',d:'Multi-page or double-sided: use Add page so it saves as a single PDF.'},
-   {i:'✓',k:'ok',t:'Flat, straight, upright',d:'Page flat, scanned straight on, phone in portrait.'},
-   {i:'✓',k:'ok',t:'Fills the screen, in focus',d:'No background clutter. Text sharp and readable.'},
-   {i:'✓',k:'ok',t:'No glare',d:'Natural light, no overhead glare.'},
-   {i:'✓',k:'ok',t:'Supplier name on unlabelled dockets',d:'Written on in marker before scanning.'},
-   {i:'✓',k:'ok',t:'Card receipts',d:'Itemised till receipt, not the terminal slip.'},
-   {i:'🍎',k:'warn',t:'iPhone',d:'Ignore the blue lines on the camera. They only line up on Android.'}]}]}
 ];
 META.dh={"w": 720, "h": 1490, "hs": {"vsd": [4.02, 41.25, 44.87, 30.1], "cc": [51.28, 41.25, 43.59, 30.1], "rep": [4.02, 72.63, 44.87, 26.05]}};META.rep={"w": 720, "h": 978, "hs": {"cost": [4.53, 17.61, 91.11, 23.02], "sum": [4.53, 44.15, 91.11, 19.31], "chg": [4.53, 67.36, 91.11, 23.4]}};META.cost={"w": 720, "h": 1490, "hs": {"sup": [4.27, 9.37, 44.62, 4.91], "srch": [52.05, 9.37, 43.59, 4.91], "cp": [4.27, 32.2, 55.56, 4.54]}};META.sel={"w": 720, "h": 895, "hs": {"box": [4.27, 11.62, 91.88, 8.59], "tick": [2.56, 23.85, 94.87, 8.59], "apply": [0.0, 87.9, 100.0, 11.13]}};META.filt={"w": 720, "h": 1490, "hs": {"sel": [4.27, 9.37, 44.62, 4.91], "srch": [52.05, 9.37, 43.59, 4.91], "cp": [4.27, 32.2, 55.56, 4.54]}};META.chg={"w": 720, "h": 1490, "hs": {"srch": [4.1, 9.5, 64.27, 4.95], "tabs": [4.1, 16.93, 95.9, 4.29], "pct": [71.79, 44.18, 21.88, 2.15], "np": [27.35, 54.25, 20.17, 2.48]}};META.cinv={"w": 720, "h": 1378, "hs": {}};META.dec={"w": 720, "h": 1490, "hs": {"tab": [4.79, 16.89, 48.12, 4.38], "card": [3.42, 24.11, 92.22, 17.55]}};META.vsd={"w": 720, "h": 1490, "hs": {"srch": [4.02, 9.37, 91.62, 6.07], "all": [4.02, 18.41, 44.02, 27.37], "adm": [51.28, 18.41, 44.36, 27.37], "chk": [4.02, 48.35, 44.02, 27.37], "coa": [51.28, 48.35, 44.36, 27.37], "hist": [4.02, 78.28, 44.02, 20.4]}};META.res={"w": 720, "h": 1490, "hs": {"r1": [2.65, 9.66, 92.99, 10.94], "tag1": [37.35, 16.72, 44.1, 2.85], "r4": [2.65, 49.38, 92.99, 13.83], "tag4": [37.35, 56.11, 32.65, 2.56]}};META.alld={"w": 720, "h": 1490, "hs": {"r1": [2.65, 9.08, 92.99, 18.17]}};META.prev={"w": 720, "h": 1378, "hs": {}};META.ccm={"w": 720, "h": 1163, "hs": {"srch": [4.02, 12.01, 91.62, 7.78], "view": [4.02, 23.6, 44.02, 35.08], "hist": [51.28, 23.6, 44.36, 35.08], "man": [4.02, 61.96, 44.02, 35.08]}};META.ccl={"w": 720, "h": 1490, "hs": {"srch": [4.02, 9.37, 44.87, 5.7], "cards": [51.28, 9.37, 44.36, 5.7], "r1": [2.65, 17.13, 92.99, 16.39]}};META.psrch={"w": 620, "h": 1267, "hs": {"srch": [50.94, 8.03, 44.87, 4.98], "card": [3.25, 15.68, 93.42, 22.88], "cp": [6.84, 34.5, 29.06, 2.8], "name": [6.84, 47.26, 87.18, 3.55]}};META.upl.hs.vup=[1.83,74.4,16.1,24.5];
 META.csel={"w": 1023, "h": 761, "hs": {"field": [4.59, 21.1, 90.82, 11.36], "opt": [4.59, 52.76, 90.82, 9.42], "submit": [39.49, 85.55, 21.01, 10.06]}};META.mod3={"w": 963, "h": 819, "hs": {"limits": [11.28, 38.91, 77.44, 10.11], "files": [4.87, 60.33, 65.0, 23.68], "submit": [38.59, 87.18, 22.82, 9.05]}};META.dashs={"w":1400,"h":361,"hs":{"doc":[1.68,54.5,9.66,7.3]}};META.aph={"w": 1170, "h": 1610, "hs": {"doc": [1.03, 74.29, 97.95, 20.62], "cash": [1.03, 26.58, 97.95, 20.62]}};META.ph3.hs.addp=[52.1,73.5,41.7,6.2];META.ph3.hs.rtk=[6.2,73.5,41.7,6.2];
@@ -856,8 +841,7 @@ const CUSTOM={
    body().innerHTML=`<div class="mtop"><b>What do you want to do?</b><span class="mt2"> Pick one. Each is a short step-by-step tutorial.</span></div>
    <div class="picks">${grp('📄','Supplier documents','Delivery dockets, invoices, credit notes, statements',[act('scan','📱','Scan','In the app'),act('upload','💻','Upload','Computer or app'),act('find','🔍','Find','Check it arrived')])}
    ${grp('💳','Card receipts','Receipts for anything paid by credit or debit card',[act('cscan','📱','Scan','In the app'),act('cupload','💻','Upload','Computer or app'),act('cfind','🔍','Find','Check it arrived')])}
-   ${grp('🏷️','Product prices','What you pay your suppliers',[act('prices','🏷️','Check product prices','Latest cost price per product')])}</div>
-   <button class="tipsbtn ${ok('tips')?'pdone':''}" onclick="goSec(${di('tips')})">💡 <b>Scanning tips &amp; checklist</b> <span>6 rules for perfect scans ›</span></button>`;},
+   ${grp('🏷️','Product prices','What you pay your suppliers',[act('prices','🏷️','Check product prices','Latest cost price per product')])}</div>`;},
  scan1(){body().innerHTML=`<div class="cap"><span class="ct">${FLAT[cur].st.cap}</span></div>`+phone(`<div class="ph-h">Scan Documents</div>
    <button class="ph-opt pulse" id="o1"><span>📦</span><b>Supplier Delivery Docs</b><small>Dockets, invoices, statements</small></button>${tapLbl}
    <div class="ph-opt" style="opacity:.6"><span>💳</span><b>Credit &amp; Debit Card Receipts</b><small>Receipts paid by card</small></div>`);$('o1').onclick=next;},
